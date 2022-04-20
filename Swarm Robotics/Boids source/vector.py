@@ -87,6 +87,9 @@ class Vector2D:
 
     # *******V******* Custom functions *******V******* #
 
+    def angle(self):
+        return math.atan2(self.y, self.x)
+
     def pow(self, power):
         return Vector2D(self.x**power, self.y**power)
 

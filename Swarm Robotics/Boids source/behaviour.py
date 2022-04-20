@@ -12,7 +12,6 @@ import math
 import numpy as np
 from vector import Vector2D
 
-from boid import Boid
 import constants
 
 FOV = 1/6
@@ -43,6 +42,7 @@ class Behaviour():
 
         # Apply behaviours
         self.force = aC * self.alignment() + cC * self.cohesion() + sC * self.separation()
+        
 
 
 ############################# BEHAVIOURS #############################

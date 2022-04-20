@@ -15,11 +15,11 @@ DOT_SIZE = constants.DRONE_RADIUS
 
 class Boid():
 
-    def __init__(self, canvas, x, y):
+    def __init__(self, perception, canvas, x, y):
         self.canvas = canvas
         self.colour = constants.COLOUR_BOID
 
-        self.perception = constants.PERCEPTION
+        self.perception = perception
         self.position = Vector2D(x, y)
         
         self.velocity = Vector2D(*(np.random.rand(2) - 0.5) * constants.MAX_SPEED)
@@ -27,6 +27,9 @@ class Boid():
 
         
         self.dot = self.makeDot(init = True)
+
+        # Logging values
+        self.log_heading_angle = 0
 
 
     def update(self, force):
@@ -44,6 +47,9 @@ class Boid():
         self.canvas.move(self.dot, self.velocity.x, self.velocity.y)
 
         self.acceleration = Vector2D(*np.zeros(2))
+
+        # Save value for logging
+        self.log_heading_angle = self.velocity.angle()
 
 
 

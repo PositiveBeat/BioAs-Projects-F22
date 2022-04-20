@@ -17,7 +17,7 @@ from boid import Boid
 from logger import Logger
 
 
-def main(frame_duration, flock_size):
+def main(test_id, frame_duration, flock_size, perception, aC = 0, cC = 0, sC = 0, debug = False):
 
     root = tk.Tk()
     root.resizable(width = False, height = False)
@@ -28,22 +28,25 @@ def main(frame_duration, flock_size):
     frame = 0
 
     # # Logging information
-    # log = Logger(flock_size)
-    # dst_target_log = np.zeros(flock_size)
+    log = Logger(test_id)
+    log.log_to_file('Flock size, perception, aC, cC, sC', *[flock_size, perception, aC, cC, sC])   # Print to log
+    avg_align_log = 0
 
 
     # SPAWN AND INITIALIZE BOIDS #####################################
-    flock = [Boid(boidFrame.board, *np.random.rand(2) * constants.BOARD_SIZE) for _ in range(constants.FLOCK_SIZE)]
+    flock = [Boid(perception, boidFrame.board, *np.random.rand(2) * constants.BOARD_SIZE) for _ in range(flock_size)]
     steer = Behaviour(flock)  # Steering vector
 
 
     # MAIN LOOP #####################################
     while True:
 
-        # Get slider values for weights
-        aC = optFrame.board.chk_alignment_value.get() *  optFrame.board.sldr_alignment.get()    # Alignment
-        cC = optFrame.board.chk_cohesion_value.get() *  optFrame.board.sldr_cohesion.get()      # Cohesion
-        sC = optFrame.board.chk_seperation_value.get() *  optFrame.board.sldr_seperation.get()  # Separation
+        if frame_duration == -1:
+            # Get slider values for weights if endless mode
+            aC = optFrame.board.chk_alignment_value.get() *  optFrame.board.sldr_alignment.get()    # Alignment
+            cC = optFrame.board.chk_cohesion_value.get() *  optFrame.board.sldr_cohesion.get()      # Cohesion
+            sC = optFrame.board.chk_seperation_value.get() *  optFrame.board.sldr_seperation.get()  # Separation
+
 
         # Boid control
         for boid in flock:
@@ -54,6 +57,9 @@ def main(frame_duration, flock_size):
                 steer.force = (steer.force / steer.force.__abs__()) * constants.MAX_FORCE
 
             boid.update(steer.force)
+
+            avg_align_log += boid.log_heading_angle
+        avg_align_log /= flock_size
 
         frame += 1
 
@@ -67,13 +73,14 @@ def main(frame_duration, flock_size):
         # if (frame % 50 + 20) == 20:    # Take screenshots every 50 frames, starting from frame 20 (to load gui)
         #     takeScreenshot(boidFrame.board)
 
-        # log.log_to_file(frame, *dst_target_log)   # Print to log
+        log.log_to_file(frame, avg_align_log)   # Print to log
 
 
         # Update GUI
-        root.update_idletasks()
-        root.update()
-        time.sleep(0.01)
+        if debug == True:
+            root.update_idletasks()
+            root.update()
+            time.sleep(0.01)
 
 
     root.destroy()
@@ -81,4 +88,6 @@ def main(frame_duration, flock_size):
 
 
 if __name__ == '__main__':
-    main(-1, constants.FLOCK_SIZE)
+    test_id = -1
+    main(test_id, -1, constants.FLOCK_SIZE, constants.PERCEPTION, aC=10, cC=1, sC=1, debug = True)
+
