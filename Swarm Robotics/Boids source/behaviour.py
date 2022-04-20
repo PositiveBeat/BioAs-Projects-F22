@@ -8,7 +8,6 @@ https://medium.com/better-programming/drones-simulating-birds-flock-behavior-in-
 The code have been changed to use the datastructure of the Vector2D class, changed the gui package, and other modifications to improve the behaviour for use on drone platforms.
 '''
 
-import math
 import numpy as np
 from vector import Vector2D
 

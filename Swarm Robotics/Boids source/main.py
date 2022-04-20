@@ -11,7 +11,6 @@ import tkinter as tk
 
 import constants
 from gui_setup import BoidFrame, OptionFrame, takeScreenshot
-from vector import Vector2D
 from behaviour import Behaviour
 from boid import Boid
 from logger import Logger
