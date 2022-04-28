@@ -1,8 +1,6 @@
 '''
 Rulebase for behaviour of drones
 
-Author: Nicoline Louise Thomsen
-
 Inspiration from tutorial for boids behaviour: 
 https://medium.com/better-programming/drones-simulating-birds-flock-behavior-in-python-9fff99375118
 The code have been changed to use the datastructure of the Vector2D class, changed the gui package, and other modifications to improve the behaviour for use on drone platforms.
@@ -24,6 +22,7 @@ class Behaviour():
     def __init__(self, flock):
         self.drone = []
         self.percieved_flockmates = []
+        self.flashing_flockmates = []
         self.force = 0
 
         self.break_flag = False
@@ -34,17 +33,45 @@ class Behaviour():
     def update(self, drone, aC, cC, sC):
         self.drone = drone
         self.percieved_flockmates.clear()
+        self.flashing_flockmates.clear()
         
         for flockmate in self.flock:
             if (0 < flockmate.position.distance_to(self.drone.position) < self.drone.perception):
                 self.percieved_flockmates.append(flockmate)
+                
+                if (flockmate.blink == True):
+                    self.flashing_flockmates.append(flockmate)
+     
+
 
         # Apply behaviours
+        self.blink_sync()
+        
         self.force = aC * self.alignment() + cC * self.cohesion() + sC * self.separation()
         
 
 
 ############################# BEHAVIOURS #############################
+
+    def blink_sync(self):
+        T = 25
+        e = 0.006
+        a = len(self.flashing_flockmates)
+        h = self.drone.sync
+        
+        
+        # Update rule
+        self.drone.sync += 1/T + e * a * h
+    
+        if self.drone.sync > 1:
+            self.drone.blink = True
+            self.drone.sync = 0
+            
+        else:  
+            self.drone.blink = False
+            
+            
+
 
     def alignment(self):
         steering = Vector2D(*np.zeros(2))

@@ -9,9 +9,9 @@ import numpy as np
 
 class Logger():
 
-    def __init__(self, flock_size):
+    def __init__(self, id):
 
-        file_name = 'logs/data' + '_' + str(flock_size) + '.csv'
+        file_name = 'logs/data' + '_' + str(id) + '.csv'
         log = open(file_name, 'w+', newline='')  # w+ mode truncates (clears) the file (new file for every test)   
 
         self.logger = csv.writer(log, dialect = 'excel')

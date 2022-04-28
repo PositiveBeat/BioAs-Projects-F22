@@ -24,6 +24,10 @@ class Boid():
         
         self.velocity = Vector2D(*(np.random.rand(2) - 0.5) * constants.MAX_SPEED)
         self.acceleration = Vector2D(*np.zeros(2))
+        
+        self.blink = False
+        self.sync = np.random.rand()
+        self.blink_duration = 0
 
         
         self.dot = self.makeDot(init = True)
@@ -47,11 +51,25 @@ class Boid():
         self.canvas.move(self.dot, self.velocity.x, self.velocity.y)
 
         self.acceleration = Vector2D(*np.zeros(2))
-
+        
+        # Blink
+        self.blink_visual()
+        
         # Save value for logging
         self.log_heading_angle = self.velocity.angle()
-
-
+        
+    
+    def blink_visual(self):
+        if (self.blink == True):
+            self.canvas.itemconfig(self.dot, fill=constants.COLOUR_GREEN)
+            self.blink_duration = 10
+        
+        if (self.blink_duration != 0):
+            self.blink_duration -= 1
+        else:  
+            self.canvas.itemconfig(self.dot, fill=self.colour)
+        
+            
 
     def makeDot(self, init):
         if not init:
