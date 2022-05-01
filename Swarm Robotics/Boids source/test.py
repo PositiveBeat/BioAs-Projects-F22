@@ -8,9 +8,9 @@ from main import main
 frame_duration = 800
 
 # Parameters to test
-flock_sizes = [5, 10, 25, 50, 100]
+flock_sizes = [25, 100]
 
-perceptions = [1000, 500, 250, 100]
+perceptions = [100, 1000]
 
 weights = [ [0, 0, 0],
             [10, 10, 10],
@@ -25,14 +25,19 @@ weights_sync = [ [0, 0, 0],
 def test_boids():
 
     test_id = 0
-
+    
     for flock_size in flock_sizes:
         for perception in perceptions:
-            for aC, cC, sC in weights:
-                test_id += 1
-                print("Test: ", test_id)
-
-                main('boid' + str(test_id), frame_duration, flock_size, perception, aC=aC, cC=cC, sC=sC)   # Run simulation
+            test_id += 1
+            print("Test: ", test_id)
+            main('boid', test_id, frame_duration, flock_size, perception, aC=10, cC=10, sC=10)   # Run simulation
+    
+    print('Changing weights...')
+    
+    for aC, cC, sC in weights:
+        test_id += 1
+        print("Test: ", test_id)
+        main('boid', test_id, frame_duration, 25, 100, aC=aC, cC=cC, sC=sC)   # Run simulation
 
 
 def test_sync():
@@ -45,11 +50,15 @@ def test_sync():
                 test_id += 1
                 print("Test: ", test_id)
 
-                main('sync' + str(test_id), frame_duration, flock_size, perception, aC=aC, cC=cC, sC=sC)   # Run simulation
+                main('sync', test_id, frame_duration, flock_size, perception, aC=aC, cC=cC, sC=sC)   # Run simulation
 
 
 
 if __name__ == '__main__':
+    
+    print('Boids test...')
     test_boids()
     
-    # test_sync()
+    print('\nSync test...')
+    test_sync()
+

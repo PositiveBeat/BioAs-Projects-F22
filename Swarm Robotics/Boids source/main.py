@@ -14,7 +14,7 @@ from logger import Logger
 from plotCSV import plotCSV
 
 
-def main(test_id, frame_duration, flock_size, perception, aC = 0, cC = 0, sC = 0, debug = False):
+def main(test_id, test_nr, frame_duration, flock_size, perception, aC = 0, cC = 0, sC = 0, debug = False):
 
     root = tk.Tk()
     root.resizable(width = False, height = False)
@@ -25,7 +25,7 @@ def main(test_id, frame_duration, flock_size, perception, aC = 0, cC = 0, sC = 0
     frame = 0
 
     # Logging information
-    log = Logger(test_id)
+    log = Logger(test_id + str(test_nr))
     log.log_to_file('Flock size, perception, aC, cC, sC', *[flock_size, perception, aC, cC, sC])   # Print to log
     avg_align_log = 0
     sync_diff_log = np.zeros(flock_size)
@@ -77,8 +77,13 @@ def main(test_id, frame_duration, flock_size, perception, aC = 0, cC = 0, sC = 0
         # if (frame % 50 + 20) == 20:    # Take screenshots every 50 frames, starting from frame 20 (to load gui)
         #     takeScreenshot(boidFrame.board)
 
-        if (frame % T) == 0:
-            log.log_to_file(frame, *sync_diff_log)   # Print to log
+
+        if(test_id == 'boid'):
+            log.log_to_file(frame, avg_align_log)   # Print to log
+            
+        elif (test_id == 'sync'):
+            if (frame % T) == 0:
+                log.log_to_file(frame, *sync_diff_log)   # Print to log
 
 
         # Update GUI
@@ -96,5 +101,7 @@ if __name__ == '__main__':
     
     flock_size = 50
     
-    test_id = -1
-    main(test_id, -1, flock_size, constants.PERCEPTION+1000, aC=10, cC=1, sC=1, debug = True)
+    test_id = ''
+    test_nr = ''
+    main(test_id, test_nr, -1, flock_size, constants.PERCEPTION+1000, aC=10, cC=1, sC=1, debug = True)
+
