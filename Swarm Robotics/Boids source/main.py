@@ -11,16 +11,16 @@ from gui_setup import BoidFrame, OptionFrame, takeScreenshot
 from behaviour import Behaviour
 from boid import Boid
 from logger import Logger
-from plotCSV import plotCSV
 
 
 def main(test_id, test_nr, frame_duration, flock_size, perception, aC = 0, cC = 0, sC = 0, debug = False):
 
+    # GUI Setup
     root = tk.Tk()
     root.resizable(width = False, height = False)
 
     boidFrame = BoidFrame()
-    optFrame = OptionFrame()  # Option frame disabled
+    optFrame = OptionFrame()
 
     frame = 0
 
@@ -32,7 +32,7 @@ def main(test_id, test_nr, frame_duration, flock_size, perception, aC = 0, cC = 
     T = 25
 
 
-    # SPAWN AND INITIALIZE BOIDS #####################################
+    # Spawn and initialise boids
     flock = [Boid(perception, boidFrame.board, *np.random.rand(2) * constants.BOARD_SIZE) for _ in range(flock_size)]
     steer = Behaviour(flock)  # Steering vector
 
@@ -70,20 +70,18 @@ def main(test_id, test_nr, frame_duration, flock_size, perception, aC = 0, cC = 
 
         # Main loop breakers
         if frame > frame_duration and frame_duration != -1: break
-        if steer.break_flag == True: break
 
 
         # Logging
-        # if (frame % 50 + 20) == 20:    # Take screenshots every 50 frames, starting from frame 20 (to load gui)
-        #     takeScreenshot(boidFrame.board)
-
-
         if(test_id == 'boid'):
-            log.log_to_file(frame, avg_align_log)   # Print to log
+            log.log_to_file(frame, avg_align_log)   # Print to log (boids test)
             
         elif (test_id == 'sync'):
             if (frame % T) == 0:
-                log.log_to_file(frame, *sync_diff_log)   # Print to log
+                log.log_to_file(frame, *sync_diff_log)   # Print to log (sync test)
+        
+        # if (frame % 50 + 20) == 20:    # Take screenshots every 50 frames, starting from frame 20 (to load gui)
+        #     takeScreenshot(boidFrame.board)
 
 
         # Update GUI

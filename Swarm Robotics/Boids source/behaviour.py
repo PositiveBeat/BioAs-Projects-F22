@@ -24,8 +24,6 @@ class Behaviour():
         self.percieved_flockmates = []
         self.flashing_flockmates = []
         self.force = 0
-
-        self.break_flag = False
         
         self.flock = flock
 

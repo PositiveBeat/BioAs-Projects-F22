@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 
 
 class CSVprocessor():
+    
     def __init__(self, filename, n_columns=2):
         self.filename = filename
         self.n_columns = n_columns
@@ -67,3 +68,4 @@ if __name__ == '__main__':
     
     # CSV.plot_float_data(title='Sync', xlabel='frame', ylabel='sync value')
     CSV.plot_float_data(title='Average heading over time', xlabel='frame', ylabel='Average heading [rad]')
+
