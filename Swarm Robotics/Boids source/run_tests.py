@@ -10,7 +10,7 @@ frame_duration = 800
 # Parameters to test
 flock_sizes = [25, 100]
 
-perceptions = [100, 1000]
+perceptions = [200, 1000]
 
 weights = [ [0, 0, 0],
             [10, 10, 10],
@@ -25,19 +25,20 @@ weights_sync = [ [0, 0, 0],
 def test_boids():
 
     test_id = 0
+    debug_state = True
     
     for flock_size in flock_sizes:
         for perception in perceptions:
             test_id += 1
             print("Test: ", test_id)
-            main('boid', test_id, frame_duration, flock_size, perception, aC=10, cC=10, sC=10)   # Run simulation
+            main('boid', test_id, frame_duration, flock_size, perception, aC=10, cC=10, sC=10, debug = debug_state)   # Run simulation
     
     print('Changing weights...')
     
     for aC, cC, sC in weights:
         test_id += 1
         print("Test: ", test_id)
-        main('boid', test_id, frame_duration, 25, 100, aC=aC, cC=cC, sC=sC)   # Run simulation
+        main('boid', test_id, frame_duration, flock_sizes[0], perceptions[0], aC=aC, cC=cC, sC=sC, debug = debug_state)   # Run simulation
 
 
 def test_sync():
@@ -61,4 +62,5 @@ if __name__ == '__main__':
     
     print('\nSync test...')
     test_sync()
-
+    
+    print("All done!")

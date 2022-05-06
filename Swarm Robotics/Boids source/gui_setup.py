@@ -1,19 +1,22 @@
-import tkinter as tk
-import datetime
+import os
 import pyautogui
+import tkinter as tk
 
 import constants
 
 
-def takeScreenshot(canvas):
+def takeScreenshot(canvas, folder, name):
     # Code from internet: https://www.javaer101.com/en/article/46892642.html
-    # get the region of the canvas
-    time = str(datetime.datetime.now())[11:19]
-    dateid = time.replace(':', '')
 
+    if (not os.path.exists('screenshots/' + folder)):
+        os.mkdir('screenshots/' + folder)
+
+    # get the region of the canvas
     x, y = canvas.winfo_rootx(), canvas.winfo_rooty()
     w, h = canvas.winfo_width(), canvas.winfo_height()
-    pyautogui.screenshot('screenshots/screenshot' + dateid +'.png', region=(x, y, w, h))
+    pyautogui.screenshot('screenshots/' + folder + '/' + name +'.png', region=(x, y, w, h))
+    
+
 
 
 class BoidBoard(tk.Canvas):
