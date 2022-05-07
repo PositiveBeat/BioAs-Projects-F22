@@ -88,13 +88,14 @@ def main(test_id, test_nr, frame_duration, flock_size, perception, aC = 0, cC = 
         elif (test_id == 'sync'):
             if (frame % T) == 0:
                 log.log_to_file(frame, *sync_diff_log)   # Print to log (sync test)
-        
-        if (frame % 25 + 25) == 25:    # Take screenshots every 50 frames, starting from frame 20 (to load gui)
-            takeScreenshot(boidFrame.board, test_id + str(test_nr), str(frame))
+
 
 
         # Update GUI
         if debug == True:
+            if (frame % 25 + 25) == 25:    # Take screenshots every 50 frames, starting from frame 20 (to load gui)
+                takeScreenshot(boidFrame.board, test_id + str(test_nr), str(frame))
+                
             root.update_idletasks()
             root.update()
             time.sleep(0.01)

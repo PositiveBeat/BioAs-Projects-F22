@@ -44,6 +44,7 @@ def test_boids():
 def test_sync():
 
     test_id = 0
+    debug_state = True
 
     for flock_size in flock_sizes:
         for perception in perceptions:
@@ -51,14 +52,14 @@ def test_sync():
                 test_id += 1
                 print("Test: ", test_id)
 
-                main('sync', test_id, frame_duration, flock_size, perception, aC=aC, cC=cC, sC=sC)   # Run simulation
+                main('sync', test_id, frame_duration, flock_size, perception, aC=aC, cC=cC, sC=sC, debug = debug_state)   # Run simulation
 
 
 
 if __name__ == '__main__':
     
-    print('Boids test...')
-    test_boids()
+    # print('Boids test...')
+    # test_boids()
     
     print('\nSync test...')
     test_sync()
