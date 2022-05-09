@@ -103,7 +103,7 @@ CHECK_CUR_NUM = 6
 BAUDRATE = 3000000#4000000#57600#
 
 CONTROLLER = 'ada_imp'#'const_imp'#
-TASK = 'track'#'post_con'#
+TASK = 'post_con'#'track'#
 
 class Ada_con():
 	def __init__(self, con_type = 'impe_con', co_mod = 3, re_only = False, dn = '/dev/ttyUSB0'):
@@ -188,7 +188,7 @@ class Ada_con():
 		self.pre_dif_vel = zeros(self.num_moto)
 		self.pre_des_pos = zeros(self.num_moto)
 
-		self.save_result = False#True
+		self.save_result = True#False
 		if (self.save_result):
 			self.open_files()
 
@@ -396,25 +396,25 @@ class Ada_con():
 		plot_dir = './plots/'
 		plot_dir = plot_dir + self.tra_type +'/' + self.task +'/'
 
-		self.t_f = open(plot_dir+'t.txt','w+')
+		self.t_f = open(plot_dir+'t.csv','w+')
 		if self.task in ('ada_imp', 'const_imp'):#== 'ada_imp':
-			self.tau_f = [open(plot_dir+'tau'+str(i)+'.txt', 'w+') for i in range(self.dm.moto_num)]
-			self.k_f = [open(plot_dir+'k'+str(i)+'.txt', 'w+') for i in range(self.dm.moto_num)]
-			self.d_f = [open(plot_dir+'d'+str(i)+'.txt', 'w+') for i in range(self.dm.moto_num)]
+			self.tau_f = [open(plot_dir+'tau'+str(i)+'.csv', 'w+') for i in range(self.dm.moto_num)]
+			self.k_f = [open(plot_dir+'k'+str(i)+'.csv', 'w+') for i in range(self.dm.moto_num)]
+			self.d_f = [open(plot_dir+'d'+str(i)+'.csv', 'w+') for i in range(self.dm.moto_num)]
 			#if self.task == 'ada_imp':
-			self.ff_f = [open(plot_dir+'ff'+str(i)+'.txt', 'w+') for i in range(self.dm.moto_num)]
-		self.pos_f = [open(plot_dir+'pos'+str(i)+'.txt', 'w+') for i in range(self.dm.moto_num)]
-		self.vel_f = [open(plot_dir+'vel'+str(i)+'.txt', 'w+') for i in range(self.dm.moto_num)]
-		self.cur_f = [open(plot_dir+'cur'+str(i)+'.txt', 'w+') for i in range(self.dm.moto_num)]
-		self.cur4tor_f = [open(plot_dir+'cur4tor'+str(i)+'.txt', 'w+') for i in range(self.dm.moto_num)]
-		self.des_pos_f = [open(plot_dir+'des_pos'+str(i)+'.txt', 'w+') for i in range(self.dm.moto_num)]
-		self.des_vel_f = [open(plot_dir+'des_vel'+str(i)+'.txt', 'w+') for i in range(self.dm.moto_num)]
-		self.dif_pos_f = [open(plot_dir+'dif_pos'+str(i)+'.txt', 'w+') for i in range(self.dm.moto_num)]
-		self.dif_vel_f = [open(plot_dir+'dif_vel'+str(i)+'.txt', 'w+') for i in range(self.dm.moto_num)]
+			self.ff_f = [open(plot_dir+'ff'+str(i)+'.csv', 'w+') for i in range(self.dm.moto_num)]
+		self.pos_f = [open(plot_dir+'pos'+str(i)+'.csv', 'w+') for i in range(self.dm.moto_num)]
+		self.vel_f = [open(plot_dir+'vel'+str(i)+'.csv', 'w+') for i in range(self.dm.moto_num)]
+		self.cur_f = [open(plot_dir+'cur'+str(i)+'.csv', 'w+') for i in range(self.dm.moto_num)]
+		self.cur4tor_f = [open(plot_dir+'cur4tor'+str(i)+'.csv', 'w+') for i in range(self.dm.moto_num)]
+		self.des_pos_f = [open(plot_dir+'des_pos'+str(i)+'.csv', 'w+') for i in range(self.dm.moto_num)]
+		self.des_vel_f = [open(plot_dir+'des_vel'+str(i)+'.csv', 'w+') for i in range(self.dm.moto_num)]
+		self.dif_pos_f = [open(plot_dir+'dif_pos'+str(i)+'.csv', 'w+') for i in range(self.dm.moto_num)]
+		self.dif_vel_f = [open(plot_dir+'dif_vel'+str(i)+'.csv', 'w+') for i in range(self.dm.moto_num)]
 
-		self.ave_cur = [open(plot_dir+'ave_cur'+str(i)+'.txt', 'w+') for i in range(self.dm.moto_num)]
-		self.ave_dif_pos = [open(plot_dir+'ave_dif_pos'+str(i)+'.txt', 'w+') for i in range(self.dm.moto_num)]
-		self.ave_dif_vel = [open(plot_dir+'ave_dif_vel'+str(i)+'.txt', 'w+') for i in range(self.dm.moto_num)]
+		self.ave_cur = [open(plot_dir+'ave_cur'+str(i)+'.csv', 'w+') for i in range(self.dm.moto_num)]
+		self.ave_dif_pos = [open(plot_dir+'ave_dif_pos'+str(i)+'.csv', 'w+') for i in range(self.dm.moto_num)]
+		self.ave_dif_vel = [open(plot_dir+'ave_dif_vel'+str(i)+'.csv', 'w+') for i in range(self.dm.moto_num)]
 	def save_data(self):
 		for i in range(self.dm.moto_num):
 			if self.task in ('ada_imp', 'const_imp'):# == 'ada_imp':
