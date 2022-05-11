@@ -53,7 +53,8 @@ class Behaviour():
 
     def blink_sync(self):
         T = 25
-        e = 0.006
+        # e = 0.006
+        e = 0.01
         a = len(self.flashing_flockmates)
         h = self.drone.sync
         

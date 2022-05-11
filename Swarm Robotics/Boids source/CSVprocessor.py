@@ -70,7 +70,7 @@ class CSVprocessor():
 if __name__ == '__main__':
 
     # CSV = CSVprocessor('logs/data_boid9.csv', 2)
-    CSV = CSVprocessor('logs/data_sync4.csv', 26)
+    CSV = CSVprocessor('logs/data_sync8.csv', 101)
     
     CSV.plot_float_data(xlabel='frame', ylabel='sync value', style='rx')
     # CSV.plot_float_data(xlabel='frame', ylabel='$\phi$', ylim=[0, 1.1])
