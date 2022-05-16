@@ -69,7 +69,7 @@ class CSVprocessor():
 
 if __name__ == '__main__':
     
-    def plot_data():
+    def plot_data_pos():
         pos = csv_pos.extract_float_columns([0])
         posdes = csv_posdes.extract_float_columns([0])
         
@@ -83,27 +83,44 @@ if __name__ == '__main__':
         # plt.ylim([-0.5, 0.5])
         plt.legend()
         plt.show()
+        
+    def plot_data_tau():
+        tau = csv_tau.extract_float_columns([0])
+
+        plt.plot(tau[0], 'b')
+
+        plt.xlabel('t')
+        plt.ylabel('tau')
+        plt.title('Tau over time')
+        # plt.ylim([-0.5, 0.5])
+        plt.legend()
+        plt.show()
     
 
     # const const imp
     # csv_pos = CSVprocessor('plots/post_con/const_imp/pos0.csv', 1)
     # csv_posdes = CSVprocessor('plots/post_con/const_imp/des_pos0.csv', 1)
+    # csv_tau = CSVprocessor('plots/post_con/const_imp/tau0.csv', 1)
     
     # const ada imp
-    csv_pos = CSVprocessor('plots/post_con/ada_imp/pos0.csv', 1)
-    csv_posdes = CSVprocessor('plots/post_con/ada_imp/des_pos0.csv', 1)
+    # csv_pos = CSVprocessor('plots/post_con/ada_imp/pos0.csv', 1)
+    # csv_posdes = CSVprocessor('plots/post_con/ada_imp/des_pos0.csv', 1)
+    # csv_tau = CSVprocessor('plots/post_con/ada_imp/tau0.csv', 1)
     
     # Track const imp
     # csv_pos = CSVprocessor('plots/track/const_imp/pos0.csv', 1)
     # csv_posdes = CSVprocessor('plots/track/const_imp/des_pos0.csv', 1)
+    # csv_tau = CSVprocessor('plots/track/const_imp/tau0.csv', 1)
     
     # Track ada imp
     # csv_pos = CSVprocessor('plots/track/ada_imp/pos0.csv', 1)
     # csv_posdes = CSVprocessor('plots/track/ada_imp/des_pos0.csv', 1)
+    # csv_tau = CSVprocessor('plots/track/ada_imp/tau0.csv', 1)
     
     
     
-    plot_data()
+    # plot_data_pos()
+    plot_data_tau()
     
     
 
